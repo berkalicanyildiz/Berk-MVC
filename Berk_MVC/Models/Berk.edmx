@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="berk_siteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Kategori">
+          <Key>
+            <PropertyRef Name="katid" />
+          </Key>
+          <Property Name="katid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KategoriAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="KategoriOzet" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="KategoriSira" Type="int" Nullable="false" />
+          <Property Name="KategoriTarih" Type="datetime" Nullable="false" />
+          <Property Name="KategoriResim" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Aktif" Type="bit" Nullable="false" />
+          <Property Name="sil" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="kullaniciadmin">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="adi" Type="nvarchar" MaxLength="50" />
+          <Property Name="soyadi" Type="nvarchar" MaxLength="50" />
+          <Property Name="sifre" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Aktif" Type="bit" Nullable="false" />
+          <Property Name="sil" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Makale">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MakaleBaslik" Type="nvarchar(max)" />
+          <Property Name="MakaleOzet" Type="nvarchar(max)" />
+          <Property Name="MakaleIcerik" Type="ntext" />
+          <Property Name="MakaleResim" Type="nvarchar(max)" />
+          <Property Name="MakaleTarih" Type="datetime" />
+          <Property Name="Sira" Type="int" />
+          <Property Name="makaleOkunma" Type="int" />
+          <Property Name="MakaleYorumSayisi" Type="int" />
+          <Property Name="Aktif" Type="bit" Nullable="false" />
+          <Property Name="KategoriID" Type="int" Nullable="false" />
+          <Property Name="sil" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Makale_Kategori">
+          <End Role="Kategori" Type="Self.Kategori" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Makale" Type="Self.Makale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategori">
+              <PropertyRef Name="katid" />
+            </Principal>
+            <Dependent Role="Makale">
+              <PropertyRef Name="KategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="berk_siteModelStoreContainer">
+          <EntitySet Name="Kategori" EntityType="Self.Kategori" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="kullaniciadmin" EntityType="Self.kullaniciadmin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Makale" EntityType="Self.Makale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Makale_Kategori" Association="Self.FK_Makale_Kategori">
+            <End Role="Kategori" EntitySet="Kategori" />
+            <End Role="Makale" EntitySet="Makale" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="berk_siteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Kategori">
+          <Key>
+            <PropertyRef Name="katid" />
+          </Key>
+          <Property Name="katid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KategoriAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="KategoriOzet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="KategoriSira" Type="Int32" Nullable="false" />
+          <Property Name="KategoriTarih" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="KategoriResim" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Aktif" Type="Boolean" Nullable="false" />
+          <Property Name="sil" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Makales" Relationship="Self.FK_Makale_Kategori" FromRole="Kategori" ToRole="Makale" />
+        </EntityType>
+        <EntityType Name="kullaniciadmin">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="adi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="soyadi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Aktif" Type="Boolean" Nullable="false" />
+          <Property Name="sil" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Makale">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MakaleBaslik" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MakaleOzet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MakaleIcerik" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MakaleResim" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MakaleTarih" Type="DateTime" Precision="3" />
+          <Property Name="Sira" Type="Int32" />
+          <Property Name="makaleOkunma" Type="Int32" />
+          <Property Name="MakaleYorumSayisi" Type="Int32" />
+          <Property Name="Aktif" Type="Boolean" Nullable="false" />
+          <Property Name="KategoriID" Type="Int32" Nullable="false" />
+          <Property Name="sil" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Kategori" Relationship="Self.FK_Makale_Kategori" FromRole="Makale" ToRole="Kategori" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Makale_Kategori">
+          <End Role="Kategori" Type="Self.Kategori" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Makale" Type="Self.Makale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategori">
+              <PropertyRef Name="katid" />
+            </Principal>
+            <Dependent Role="Makale">
+              <PropertyRef Name="KategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="berk_siteEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Kategoris" EntityType="Self.Kategori" />
+          <EntitySet Name="kullaniciadmins" EntityType="Self.kullaniciadmin" />
+          <EntitySet Name="Makales" EntityType="Self.Makale" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_Makale_Kategori" Association="Self.FK_Makale_Kategori">
+            <End Role="Kategori" EntitySet="Kategoris" />
+            <End Role="Makale" EntitySet="Makales" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="berk_siteModelStoreContainer" CdmEntityContainer="berk_siteEntities">
+          <EntitySetMapping Name="Kategoris">
+            <EntityTypeMapping TypeName="berk_siteModel.Kategori">
+              <MappingFragment StoreEntitySet="Kategori">
+                <ScalarProperty Name="katid" ColumnName="katid" />
+                <ScalarProperty Name="KategoriAdi" ColumnName="KategoriAdi" />
+                <ScalarProperty Name="KategoriOzet" ColumnName="KategoriOzet" />
+                <ScalarProperty Name="KategoriSira" ColumnName="KategoriSira" />
+                <ScalarProperty Name="KategoriTarih" ColumnName="KategoriTarih" />
+                <ScalarProperty Name="KategoriResim" ColumnName="KategoriResim" />
+                <ScalarProperty Name="Aktif" ColumnName="Aktif" />
+                <ScalarProperty Name="sil" ColumnName="sil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kullaniciadmins">
+            <EntityTypeMapping TypeName="berk_siteModel.kullaniciadmin">
+              <MappingFragment StoreEntitySet="kullaniciadmin">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="adi" ColumnName="adi" />
+                <ScalarProperty Name="soyadi" ColumnName="soyadi" />
+                <ScalarProperty Name="sifre" ColumnName="sifre" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="Aktif" ColumnName="Aktif" />
+                <ScalarProperty Name="sil" ColumnName="sil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Makales">
+            <EntityTypeMapping TypeName="berk_siteModel.Makale">
+              <MappingFragment StoreEntitySet="Makale">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="MakaleBaslik" ColumnName="MakaleBaslik" />
+                <ScalarProperty Name="MakaleOzet" ColumnName="MakaleOzet" />
+                <ScalarProperty Name="MakaleIcerik" ColumnName="MakaleIcerik" />
+                <ScalarProperty Name="MakaleResim" ColumnName="MakaleResim" />
+                <ScalarProperty Name="MakaleTarih" ColumnName="MakaleTarih" />
+                <ScalarProperty Name="Sira" ColumnName="Sira" />
+                <ScalarProperty Name="makaleOkunma" ColumnName="makaleOkunma" />
+                <ScalarProperty Name="MakaleYorumSayisi" ColumnName="MakaleYorumSayisi" />
+                <ScalarProperty Name="Aktif" ColumnName="Aktif" />
+                <ScalarProperty Name="KategoriID" ColumnName="KategoriID" />
+                <ScalarProperty Name="sil" ColumnName="sil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="berk_siteModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,61 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@using Berk_MVC.Areas.tr.Controllers
+@using Berk_MVC.Models
+@model IPagedList<Kategori>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/tr/Views/Shared/_Layout.cshtml";
+  
+}
+@{
+    ViewBag.Title = "Kategoriler";
+}
+
+
+<div class="container inner tp0">
+
+
+    <h3>Tüm Kategoriler</h3>
+
+    <div class="row mar0 pad0">
+
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-6 col-md-3 col-lg-3 mar0 pad0">
+                <div class="thumbnail">
+                    <img src="@item.KategoriResim" style="width:200px;height:100px;" class="img-responsive">
+                    <div class="caption" style="text-align:center">
+                        <h3>@item.KategoriAdi</h3>
+                        <p>@item.KategoriOzet</p>
+
+                        <p><a href="@String.Format("/tr/kategoridetay/{0}/{1}", item.katid,URL.urlolustur(item.KategoriAdi))" class="btn btn-primary btn-group-lg" role="button">Tüm İçerikler</a> </p>
+                    </div>
+                </div>
+            </div>
+        }
+       
+
+    </div>
+    <div class="row text-center">
+        <div class="col-md-12">
+            <center>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination" style="display:inline-block!important">
+                        <li>
+                            
+                            @Html.PagedListPager(Model, _sayfaNo => Url.Action("Kategoriler", "Home", new { SayfaNo = _sayfaNo + 1 }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                            <div class="t"></div>
+
+
+                           
+                        </li>
+                       
+                    </ul>
+                </nav>
+            </center>
+        </div>
+    </div>
+</div>
+
+

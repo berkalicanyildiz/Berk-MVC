@@ -1,0 +1,65 @@
+﻿@using Berk_MVC.Models;
+@using Berk_MVC.Areas.tr.Controllers;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/tr/Views/Shared/_Layout.cshtml";
+}
+@model dynamic
+
+<div class="container inner tp0">
+    <div class="blog row">
+        <div class="col-sm-8">
+            <div class="blog-content classic-view">
+                <div class="blog-posts">
+                    <div class="post">
+                        <div class="post-content">
+                            @foreach (var item in Model.makale)
+                            {
+                               @Html.Raw(item.MakaleIcerik)
+                               
+                            }
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <aside class="col-sm-4 sidebar">
+
+            <div class="sidebox widget">
+                <h3 class="widget-title section-title">Kategoriye Ait Diğer Yazılar</h3>
+                <ul class="post-list list-unstyled">
+
+                    @foreach (var item2 in Model.aynikategori)
+                    {
+                        <li style=" margin-bottom: 15px;clear:both">
+                            <div style="float:left; width:70px;height:70px;">
+                                <a href="@String.Format("/tr/detay/{0}/{1}",item2.id, URL.urlolustur(item2.MakaleBaslik))">
+                                    <img src="@item2.MakaleResim" class="img-responsive" />
+                                </a>
+                            </div>
+                            <div style="margin-left: 85px;">
+                                <h4 class="post-title">
+                                    <a href="@String.Format("/tr/detay/{0}/{1}",item2.id, URL.urlolustur(item2.MakaleBaslik))">
+                                        @item2.MakaleBaslik
+                                    </a>
+                                </h4>
+                            </div>
+                        </li>
+
+                    }
+
+                           
+
+
+
+                      
+                </ul>
+            </div>
+        </aside>
+    </div>
+</div>

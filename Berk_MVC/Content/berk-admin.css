@@ -1,0 +1,116 @@
+﻿/*Berk Alican YILDIZ */
+
+body { padding:0;
+    margin:0;
+}
+.max990px
+{
+    max-width:990px!important;
+    min-height:101px;
+}
+.pad0{
+    padding:0px;
+}
+.mar0{
+    margin:0;
+}.max1200px{
+    max-width:1200px;     
+}
+ .sosyal ul {
+    list-style:none;
+    -webkit-padding-start: 15px!important;
+    float:right;
+        margin-top: 18px!important;
+}
+.sosyal ul li{
+    display:block;
+    float:left;
+  
+    margin-left:15px;
+}
+.sosyal ul li i{
+    
+}
+.liste{
+    margin-left:auto;
+    margin-right:auto;
+}
+.menu {
+ 
+    
+}
+.menu ul{
+    list-style-type:none;
+    
+}
+.menu ul li{
+    float:left;
+   
+}
+.menu a {
+    color:white;
+}
+.dropdown-menu > li > a:hover, li dropdown-menu > ul > a:focus {
+    background-image: none!important;
+background-color:cornflowerblue !important;
+              
+}
+.dropdown-menu > li {
+    width:100%;
+}
+.navbar .open > a, .nav .open > a:hover, .nav .open > a:focus{
+background-color:red;  border-color:transparent;
+}
+.icerik td{
+    padding-bottom:15px!important;
+    padding-right: 15px;
+}
+.msg {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+    .msg p {
+        padding: 9px 10px 9px 40px;
+        font-size: 12px;
+        background-repeat: no-repeat;
+        background-position: 10px 5px;
+    }
+
+.msg-ok p {
+    background-color: #fffac2;
+    border: solid 1px #dbd6a2;
+    color: #5e5c40;
+    background-image: url(../images/msg-ok.gif);
+}
+
+.msg-error p {
+    background-color: #f3c598;
+    border: solid 1px #e8b084;
+    color: #ba4c32;
+    background-image: url(../images/msg-error.gif);
+}
+.navbar-login
+{
+    width: 305px;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.navbar-login-session
+{
+    padding: 10px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.icon-size
+{
+    font-size: 87px;
+}
+@media (max-width: 767px){
+    .menu ul li{
+    float:none;
+    margin-left:0px;
+}
+}

@@ -1,0 +1,158 @@
+﻿@using Berk_MVC;
+@using Berk_MVC.Models;
+
+@{ 
+    berk_siteEntities db = new berk_siteEntities();
+    if (Session["AdminID"] == null)
+    {
+        Response.Redirect("/admin/login");
+    }
+    else
+    {
+        object kullanici = "";
+
+        kullanici = Session["AdminID"];
+        int userid = Convert.ToInt32(kullanici);
+        kullaniciadmin user = (from u in db.kullaniciadmins
+                               where u.id == userid
+                               select u).SingleOrDefault();
+        ViewBag.email = user.email;
+        ViewBag.adi = user.adi;
+    }
+
+}
+<!DOCTYPE html>
+
+<html lang="tr">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title - Berk Admin Panel</title>
+    <meta charset="utf-8" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/berk-admin.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <style>
+        .nav > li > a:hover, .nav > li > a:focus {
+            text-decoration: none;
+            background-color: lightseagreen;
+        }
+    </style>
+    <script src="~/Content/ckeditor/ckeditor.js"></script>
+    @RenderSection("head", required: false)
+</head>
+<body>
+  
+    <header>
+        <nav id="header" class="navbar">
+            <div id="header-container" class="container-fluid navbar-container max1200px">
+                <div class="col-lg-3 col-md-3 col-sm-2 mar0 pad0">
+                    <div class="navbar-header mobilheader ">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" id="simple-menu" onclick="#sidr" aria-expanded="false">
+                            <span class="glyphicon glyphicon-align-justify" style="font-size: 30px;"></span>
+
+                        </button>
+
+                        <a id="brand" class="navbar-brand baslik" href="admin">
+                            Berk Admin Panel 
+                        </a>
+                    </div>
+
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-8 mar0 pad0">
+
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-4 mar0 pad0">
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="http://mvc.berkalicanyildiz.net" target="_blank">
+                                <strong>Siteye Git</strong>
+                                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span>
+                                <strong >@ViewBag.adi</strong>
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="navbar-login">
+                                        <div class="row">
+
+                                            <div class="col-lg-12">
+                                                <p class="text-center"><strong>@ViewBag.adi</strong></p>
+                                                <p class="text-center small"><strong> @ViewBag.email </strong></p>
+                                                <p class="text-center">
+                                                    <a href="/admin/kullaniciadmin/edit?id=@Session["AdminID"]" class="btn btn-primary btn-block btn-sm">Şifre Değiştir</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <div class="navbar-login navbar-login-session">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <p>
+                                                    @Html.Partial("~/Areas/admin/Views/Account/_LogoutPartial.cshtml",false)
+
+                                                    @*<asp:Button ID="btncikis" runat="server" CssClass="btn btn-danger btn-block" Text="Çıkış" CausesValidation="false" OnClick="btncikis_Click" />*@
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+
+
+
+            </div>
+        </nav>
+    </header>
+    <section>
+        <div class="container-fluid" style="background-color:royalblue;">
+            <div class="liste max1200px">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav menu">
+                        <li><a href="/admin/index">Anasayfa</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menüler <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/admin/kategori">Kategori Ekle/Düzenle</a></li>
+                                <li><a href="/admin/makale">Makale Ekle/Düzenle</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container max1200px" style="margin-top: 15px;">
+
+        @RenderBody()
+    </div>
+</body>
+</html>

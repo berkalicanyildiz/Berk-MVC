@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_admin_layout.cshtml";
+}
+
+
+<div class="container max1200px" style="margin-top:15px;">
+    <asp:Panel ID="sitegenelayarlar" runat="server">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Berk Admin Anasayfa</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="col-md-4"> Toplam Makale Sayısı : <span id="toplammakale" >@ViewBag.toplammakale </span> </div>
+
+                <div class="col-md-4"> Toplam Kategori Sayısı : <span id="toplamkategori" >@ViewBag.toplamkategori </span> </div>
+
+                <div class="col-md-4"> Toplam Makale Okunan : <span id="toplamokuma" >@ViewBag.toplamokuma </span> </div>
+                <br />
+                <hr />
+
+            </div>
+        </div>
+    </asp:Panel>
+</div>

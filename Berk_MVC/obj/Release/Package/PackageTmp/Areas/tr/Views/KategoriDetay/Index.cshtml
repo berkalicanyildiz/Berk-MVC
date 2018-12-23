@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/tr/Views/Shared/_Layout.cshtml";
+}
+
+@using Berk_MVC.Models;
+@using Berk_MVC.Areas.tr.Controllers;
+@model List<Makale>
+
+<div class="container inner tp0">
+  
+    <h3>   @Html.Raw(ViewBag.adi) Kategorisine Ait İçerikler </h3>
+
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-6 col-md-3 col-lg-3 mar0 pad0">
+                <div class="thumbnail">
+
+                    <img src="@item.MakaleResim"  class="img-responsive" style="width:200px;height:100px;"/>
+                    <div class="caption" style="text-align:center">
+
+                        <h4 class="mar0 pad0">@item.MakaleBaslik</h4>
+                        <p class="mar0 pad0">@item.MakaleOzet</p>
+                        <p><a href="@String.Format("/tr/detay/{0}/{1}", item.id,URL.urlolustur(item.MakaleBaslik))" class="btn btn-primary btn-group-lg" role="button">Detay</a> </p>
+                    </div>
+
+                </div>
+            </div>
+        }
+               
+        
+    </div>
+</div>

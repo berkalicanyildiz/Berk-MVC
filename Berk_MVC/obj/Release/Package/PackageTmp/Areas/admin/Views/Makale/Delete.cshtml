@@ -1,0 +1,113 @@
+﻿@model Berk_MVC.Models.Makale
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/admin/Views/Shared/_admin_layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Makale</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MakaleBaslik)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MakaleBaslik)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MakaleOzet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MakaleOzet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MakaleIcerik)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MakaleIcerik)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MakaleResim)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MakaleResim)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MakaleTarih)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MakaleTarih)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sira)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sira)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.makaleOkunma)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.makaleOkunma)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MakaleYorumSayisi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MakaleYorumSayisi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Aktif)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Aktif)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sil)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sil)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Kategori.KategoriAdi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kategori.KategoriAdi)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

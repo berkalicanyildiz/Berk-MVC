@@ -1,0 +1,157 @@
+﻿@model IEnumerable<Berk_MVC.Models.Makale>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_admin_layout.cshtml";
+}
+@section head{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" />
+
+    <script type="text/javascript">
+
+    function UserDeleteConfirmation() {
+        return confirm("Kategori Silinecek onaylıyor musunuz?")
+    }
+
+    </script>
+
+    <style>
+        .table-hover > tbody > tr:hover > td, .table-hover > tbody > tr:hover > th {
+            background-color: #337ab7;
+            color: #eeeeee !important;
+        }
+    </style>
+}
+<h2>Makaleler</h2>
+
+<p>
+    @Html.ActionLink("Yeni", "Create", new { }, new { @class = "btn btn-primary" })
+</p>
+@TempData["message"]
+
+<div class="col-md-12">
+    <table class="table table-striped table-bordered dt-responsive nowrap" id="table" width="500">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.MakaleBaslik)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MakaleOzet)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MakaleIcerik)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MakaleResim)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MakaleTarih)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sira)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.makaleOkunma)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MakaleYorumSayisi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Aktif)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.sil)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Kategori.KategoriAdi)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MakaleBaslik)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MakaleOzet)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MakaleIcerik)
+                </td>
+                <td>
+                    <img width="50" src="@item.MakaleResim" />
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MakaleTarih)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sira)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.makaleOkunma)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MakaleYorumSayisi)
+                </td>
+                <td>
+                    @if (item.Aktif == true)
+                {
+                        @Html.Raw("Evet")
+                    }
+                    @if (item.Aktif == false)
+                {
+                        @Html.Raw("Hayır")
+
+                    }
+                    @if (item.Aktif == null)
+                {
+
+                }
+                </td>
+                <td>
+                    @if (item.sil == true)
+                {
+                        @Html.Raw("Evet")
+                    }
+                    @if (item.sil == false)
+                {
+                        @Html.Raw("Hayır")
+
+                    }
+                    @if (item.sil == null)
+                {
+
+                }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kategori.KategoriAdi)
+                </td>
+                <td>
+                    @Html.ActionLink("Düzenle", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("Sil", "Delete", new { id = item.id })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js "></script>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#table').dataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Turkish.json"
+            }
+        })
+    });
+</script>
+

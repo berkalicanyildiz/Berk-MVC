@@ -1,0 +1,129 @@
+﻿@model IEnumerable<Berk_MVC.Models.Kategori>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_admin_layout.cshtml";
+}
+
+@section head{
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" />
+
+<script type="text/javascript">
+
+    function UserDeleteConfirmation() {
+        return confirm("Kategori Silinecek onaylıyor musunuz?")
+    }
+
+</script>
+
+<style>
+    .table-hover > tbody > tr:hover > td, .table-hover > tbody > tr:hover > th {
+        background-color: #337ab7;
+        color: #eeeeee !important;
+    }
+</style>
+    }
+<h2>Kategoriler</h2>
+<p>
+    @Html.ActionLink("Yeni", "Create",new { },new { @class="btn btn-primary"})
+</p>
+@TempData["message"]
+<table class="table table-striped table-bordered dt-responsive nowrap" id="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.KategoriAdi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KategoriOzet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KategoriSira)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KategoriTarih)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KategoriResim)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aktif)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sil)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+@foreach (var item in Model)
+{
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.KategoriAdi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KategoriOzet)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KategoriSira)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KategoriTarih)
+            </td>
+            <td>
+                 <img width="50" src="@item.KategoriResim" />
+            </td>
+            <td>
+                @if (item.Aktif==true)
+                {
+                    @Html.Raw("Evet")
+                }
+                @if (item.Aktif == false)
+                {
+                    @Html.Raw("Hayır")
+
+                }
+                @if (item.Aktif==null)
+                {
+
+                }
+
+            </td>
+            <td>
+                @if (item.sil == true)
+                {
+                    @Html.Raw("Evet")
+                }
+                @if (item.sil == false)
+                {
+                    @Html.Raw("Hayır")
+
+                }
+                @if (item.sil == null)
+                {
+
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Düzenle", "Edit", new { id = item.katid }) |
+                @Html.ActionLink("Sil", "Delete", new { id = item.katid })
+            </td>
+        </tr>
+      
+}
+
+</table>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js "></script>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#table').dataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Turkish.json"
+            }
+        })
+    });
+</script>
+
